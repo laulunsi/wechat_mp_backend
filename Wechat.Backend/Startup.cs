@@ -1,15 +1,20 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using Wechat.Backend.Areas.ServiceAccount.Filters;
+using Wechat.Backend.Areas.ServiceAccount.Models;
 
 namespace Wechat.Backend
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -30,12 +35,17 @@ namespace Wechat.Backend
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var connectionString = Configuration.GetSection("ConnectionString").Value;
+            services.AddDbContext<WechatDbContext>(options => options.UseSqlServer(connectionString));
+
             //添加Swagger.
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "微信后端平台", Version = "v1"}); });
+
+            services.AddTransient<ServiceAccountFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
@@ -51,9 +61,34 @@ namespace Wechat.Backend
                 );
             });
 
+            loggerFactory.AddLog4Net("log4net.config");
+
             //配置Swagger
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "DemoAPI V1"); });
+
+            // 自动检测数据库并升级
+            AutoMigration(app);
+        }
+
+        private void AutoMigration(IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<WechatDbContext>();
+
+                try
+                {
+                    context.Database.Migrate();
+                }
+                catch (Exception e)
+                {
+#if DEBUG
+                    context.Database.EnsureDeleted();
+                    context.Database.Migrate();
+#endif
+                }
+            }
         }
     }
 }

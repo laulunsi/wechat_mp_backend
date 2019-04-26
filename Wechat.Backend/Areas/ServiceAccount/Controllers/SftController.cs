@@ -9,7 +9,7 @@ namespace Wechat.Backend.Areas.ServiceAccount.Controllers
     {
         // GET: api/sft
         [HttpGet]
-        [ServiceAccountFilter]
+        [ServiceFilter(typeof(ServiceAccountFilter))]
         public string Get(string echostr)
         {
             return echostr;
