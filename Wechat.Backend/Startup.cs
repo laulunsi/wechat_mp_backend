@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using Wechat.Backend.Areas.ServiceAccount.Filters;
+using Wechat.Backend.Areas.ServiceAccount.ModelBinders;
 using Wechat.Backend.Areas.ServiceAccount.Models;
 
 namespace Wechat.Backend
@@ -33,15 +34,20 @@ namespace Wechat.Backend
             //允许跨域
             services.AddCors();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddMvc(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new WechatMessageBaseEntityBinderProvider());
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var connectionString = Configuration.GetSection("ConnectionString").Value;
             services.AddDbContext<WechatDbContext>(options => options.UseSqlServer(connectionString));
 
             //添加Swagger.
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "微信后端平台", Version = "v1"}); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "微信后端平台", Version = "v1" }); });
 
-            services.AddTransient<ServiceAccountFilter>();
+            services.AddTransient<LogRequestFilter>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,17 +83,7 @@ namespace Wechat.Backend
             {
                 var context = scope.ServiceProvider.GetRequiredService<WechatDbContext>();
 
-                try
-                {
-                    context.Database.Migrate();
-                }
-                catch (Exception e)
-                {
-#if DEBUG
-                    context.Database.EnsureDeleted();
-                    context.Database.Migrate();
-#endif
-                }
+                context.Database.Migrate();
             }
         }
     }

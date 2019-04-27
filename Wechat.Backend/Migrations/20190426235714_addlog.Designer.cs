@@ -10,7 +10,7 @@ using Wechat.Backend.Areas.ServiceAccount.Models;
 namespace Wechat.Backend.Migrations
 {
     [DbContext(typeof(WechatDbContext))]
-    [Migration("20190426152704_addlog")]
+    [Migration("20190426235714_addlog")]
     partial class addlog
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,13 +29,13 @@ namespace Wechat.Backend.Migrations
 
                     b.Property<DateTime>("CreationTime");
 
-                    b.Property<string>("Echostr");
+                    b.Property<string>("Method");
 
-                    b.Property<string>("Nonce");
+                    b.Property<string>("RequestPath");
 
-                    b.Property<string>("Signature");
+                    b.Property<string>("RequestQueryString");
 
-                    b.Property<string>("Timestamp");
+                    b.Property<string>("Response");
 
                     b.HasKey("Id");
 

@@ -6,13 +6,15 @@ namespace Wechat.Backend.Areas.ServiceAccount.Models
     {
         public int Id { get; set; }
 
-        public string Signature { get; set; }
+        public string Method { get; set; }
 
-        public string Timestamp { get; set; }
+        public string RequestPath { get; set; }
 
-        public string Nonce { get; set; }
+        public string RequestQueryString { get; set; }
 
-        public string Echostr { get; set; }
+        public string RequestBody { get; set; }
+
+        public string Response { get; set; }
 
         public DateTime CreationTime { get; set; }
     }

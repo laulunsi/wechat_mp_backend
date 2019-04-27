@@ -15,11 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ServiceAccount\Data\" />
-    <Folder Include="Areas\ServiceAccount\Views\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

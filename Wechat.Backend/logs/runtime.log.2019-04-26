@@ -1,0 +1,24 @@
+2019-04-26 23:44:08,930  INFO Microsoft.EntityFrameworkCore.Infrastructure.? [?] - MESSAGE: Entity Framework Core 2.2.4-servicing-10062 initialized 'WechatDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+ 2019-04-26 23:44:09,266  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+ 2019-04-26 23:44:09,279  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+ 2019-04-26 23:44:09,329  INFO Microsoft.EntityFrameworkCore.Database.Command.? [?] - MESSAGE: Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+ 2019-04-26 23:44:09,373  INFO Microsoft.EntityFrameworkCore.Migrations.? [?] - MESSAGE: No migrations were applied. The database is already up to date.
+ 2019-04-26 23:44:09,597  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:51089/swagger/index.html  
+ 2019-04-26 23:44:09,617  WARN Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware.? [?] - MESSAGE: Failed to determine the https port for redirect.
+ 2019-04-26 23:44:10,120  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 524.6367ms 200 text/html
+ 2019-04-26 23:44:11,194  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:51089/swagger/v1/swagger.json  
+ 2019-04-26 23:44:11,661  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 469.311ms 200 application/json;charset=utf-8
+ 2019-04-26 23:44:30,494  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request starting HTTP/1.1 GET http://localhost:51089/api/Sft?echostr=abc  
+ 2019-04-26 23:44:30,515  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executing endpoint 'Wechat.Backend.Areas.ServiceAccount.Controllers.SftController.Get (Wechat.Backend)'
+ 2019-04-26 23:44:30,642  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Route matched with {action = "Get", controller = "Sft"}. Executing action Wechat.Backend.Areas.ServiceAccount.Controllers.SftController.Get (Wechat.Backend)
+ 2019-04-26 23:44:41,377  INFO Wechat.Backend.Areas.ServiceAccount.Filters.ServiceAccountFilter.? [?] - MESSAGE: data received: ...abc
+ 2019-04-26 23:44:44,480  INFO Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor.? [?] - MESSAGE: Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+ 2019-04-26 23:44:44,511  INFO Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.? [?] - MESSAGE: Executed action Wechat.Backend.Areas.ServiceAccount.Controllers.SftController.Get (Wechat.Backend) in 13856.6102ms
+ 2019-04-26 23:44:44,520  INFO Microsoft.AspNetCore.Routing.EndpointMiddleware.? [?] - MESSAGE: Executed endpoint 'Wechat.Backend.Areas.ServiceAccount.Controllers.SftController.Get (Wechat.Backend)'
+ 2019-04-26 23:44:44,528  INFO Microsoft.AspNetCore.Hosting.Internal.WebHost.? [?] - MESSAGE: Request finished in 14035.2108ms 415 application/problem+json; charset=utf-8
+ 

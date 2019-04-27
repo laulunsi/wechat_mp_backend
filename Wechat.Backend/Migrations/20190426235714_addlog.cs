@@ -14,10 +14,10 @@ namespace Wechat.Backend.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Signature = table.Column<string>(nullable: true),
-                    Timestamp = table.Column<string>(nullable: true),
-                    Nonce = table.Column<string>(nullable: true),
-                    Echostr = table.Column<string>(nullable: true),
+                    Method = table.Column<string>(nullable: true),
+                    RequestPath = table.Column<string>(nullable: true),
+                    RequestQueryString = table.Column<string>(nullable: true),
+                    Response = table.Column<string>(nullable: true),
                     CreationTime = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
