@@ -65,6 +65,11 @@ namespace Wechat.Backend
                     "areas",
                     "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+
+                routes.MapRoute(
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}"
+                );
             });
 
             loggerFactory.AddLog4Net("log4net.config");
